@@ -1,0 +1,49 @@
+{
+  "id": "57a0cc40-9d7c-4f95-88a3-c162b52619c3",
+  "values": [
+    {
+      "value": "26",
+      "key": "systemversion",
+      "enabled": true
+    },
+    {
+      "value": "61",
+      "key": "appid",
+      "enabled": true
+    },
+    {
+      "value": "华为联盟",
+      "key": "channel",
+      "enabled": true
+    },
+    {
+      "value": "1.7.0",
+      "key": "appversion",
+      "enabled": true
+    },
+    {
+      "value": "2.5",
+      "key": "version",
+      "enabled": true
+    },
+    {
+      "value": "1",
+      "key": "appostype",
+      "enabled": true
+    },
+    {
+      "value": "https://shapi.to8to.com/smartcontrol.php",
+      "key": "url1",
+      "enabled": true
+    },
+    {
+      "value": "http://mobileapi.to8to.com/oauth.php",
+      "key": "url2",
+      "enabled": true
+    }
+  ],
+  "name": "My Workspace Globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2018-08-23T07:36:43.824Z",
+  "_postman_exported_using": "Postman/6.2.5"
+}

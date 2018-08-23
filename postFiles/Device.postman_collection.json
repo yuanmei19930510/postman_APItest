@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "0c9e6fd4-abb9-fb21-2f52-8fdb575bd419",
+		"name": "Device",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取设备分类列表-正常获取",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3ec2103-7959-4ffb-a9a5-ae33dd851520",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"验证设备分类数量不为0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(0);",
+							"    console.log(\"返回的设备分类数量为：\"+jsonData.data.length)",
+							"    pm.expect(jsonData.data.length>0);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url1}}?uid={{uid}}&systemversion={{systemversion}}&to8to_token={{to8to_token}}&appid={{appid}}&channel={{channel}}&action=Catlist&model=Device&appversion={{appversion}}&version={{version}}&appostype={{appostype}}",
+					"host": [
+						"{{url1}}"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "{{uid}}"
+						},
+						{
+							"key": "systemversion",
+							"value": "{{systemversion}}"
+						},
+						{
+							"key": "to8to_token",
+							"value": "{{to8to_token}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appid}}"
+						},
+						{
+							"key": "channel",
+							"value": "{{channel}}"
+						},
+						{
+							"key": "action",
+							"value": "Catlist"
+						},
+						{
+							"key": "model",
+							"value": "Device"
+						},
+						{
+							"key": "appversion",
+							"value": "{{appversion}}"
+						},
+						{
+							"key": "version",
+							"value": "{{version}}"
+						},
+						{
+							"key": "appostype",
+							"value": "{{appostype}}"
+						}
+					]
+				},
+				"description": "正常传参"
+			},
+			"response": []
+		},
+		{
+			"name": "获取设备列表-正常获取",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c32c2cf7-2651-4c79-bf55-057c0e33734f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var resdata=JSON.parse(responseBody);",
+							"",
+							"if(resdata.data.device == \"null\")",
+							"{",
+							"    console.log(\"设备列表为空\")",
+							"}else{",
+							"    console.log(\"设备列表获取成功\")",
+							"    for(var i=0;i<resdata.data.devices.length;i++)",
+							"    {",
+							"        if (resdata.data.devices[i].sn===\"LH02121\")",
+							"        {",
+							"            pm.environment.set(\"devid\", resdata.data.devices[i].devid);",
+							"            pm.environment.set(\"sn\", resdata.data.devices[i].sn);",
+							"            break;",
+							"        }",
+							"    else {}",
+							"    }",
+							"}",
+							"    ",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3cc9ec64-d5f9-4dd6-89a9-1e36f11c3aaa",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"获取设备列表\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url1}}?uid={{uid}}&systemversion={{systemversion}}&to8to_token={{to8to_token}}&appid={{appid}}&channel={{channel}}&action=Index&model=Device&appversion={{appversion}}&version={{version}}&appostype={{appostype}}&flag=1",
+					"host": [
+						"{{url1}}"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "{{uid}}"
+						},
+						{
+							"key": "systemversion",
+							"value": "{{systemversion}}"
+						},
+						{
+							"key": "to8to_token",
+							"value": "{{to8to_token}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appid}}"
+						},
+						{
+							"key": "channel",
+							"value": "{{channel}}"
+						},
+						{
+							"key": "action",
+							"value": "Index"
+						},
+						{
+							"key": "model",
+							"value": "Device"
+						},
+						{
+							"key": "appversion",
+							"value": "{{appversion}}"
+						},
+						{
+							"key": "version",
+							"value": "{{version}}"
+						},
+						{
+							"key": "appostype",
+							"value": "{{appostype}}"
+						},
+						{
+							"key": "flag",
+							"value": "1",
+							"description": "获取设备列表状态和安防信息"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "编辑设备-编辑设备名称",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c074fa3-ba56-47fc-ab35-2fcb446f132a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"检查errorCode=0&data=1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.errorCode).to.eql(0);",
+							"    pm.expect(jsonData.data).to.eql(1);",
+							"    ",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "804c0e85-3d7a-463d-a342-c6795905406d",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"编辑设备名称\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "uid",
+							"value": "{{uid}}",
+							"type": "text"
+						},
+						{
+							"key": "systemversion",
+							"value": "{{systemversion}}",
+							"type": "text"
+						},
+						{
+							"key": "to8to_token",
+							"value": "{{to8to_token}}",
+							"type": "text"
+						},
+						{
+							"key": "appid",
+							"value": "{{appid}}",
+							"type": "text"
+						},
+						{
+							"key": "channel",
+							"value": "{{channel}}",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "Update",
+							"type": "text"
+						},
+						{
+							"key": "model",
+							"value": "Device",
+							"type": "text"
+						},
+						{
+							"key": "appversion",
+							"value": "{{appversion}}",
+							"type": "text"
+						},
+						{
+							"key": "version",
+							"value": "{{version}}",
+							"type": "text"
+						},
+						{
+							"key": "appostype",
+							"value": "{{appostype}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "sn",
+							"value": "{{sn}}",
+							"type": "text"
+						},
+						{
+							"key": "devid",
+							"value": "{{devid}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url1}}",
+					"host": [
+						"{{url1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询设备日志",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "357e3c02-b77b-4134-861b-166f59f77ec4",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(\"查询设备日志\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a46620eb-4b56-49f7-bc2a-420d9ff39da8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"返回数据中包含message字段\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url1}}?uid={{uid}}&systemversion={{systemversion}}&to8to_token={{to8to_token}}&appid={{appid}}&channel={{channel}}&action=Log&model=Device&devid={{devid}}&appversion={{appversion}}&version={{version}}&appostype={{appostype}}&paging=1&response_type=json&perPage=5",
+					"host": [
+						"{{url1}}"
+					],
+					"query": [
+						{
+							"key": "uid",
+							"value": "{{uid}}"
+						},
+						{
+							"key": "systemversion",
+							"value": "{{systemversion}}"
+						},
+						{
+							"key": "to8to_token",
+							"value": "{{to8to_token}}"
+						},
+						{
+							"key": "appid",
+							"value": "{{appid}}"
+						},
+						{
+							"key": "channel",
+							"value": "{{channel}}"
+						},
+						{
+							"key": "action",
+							"value": "Log"
+						},
+						{
+							"key": "model",
+							"value": "Device"
+						},
+						{
+							"key": "devid",
+							"value": "{{devid}}"
+						},
+						{
+							"key": "appversion",
+							"value": "{{appversion}}"
+						},
+						{
+							"key": "version",
+							"value": "{{version}}"
+						},
+						{
+							"key": "appostype",
+							"value": "{{appostype}}"
+						},
+						{
+							"key": "paging",
+							"value": "1"
+						},
+						{
+							"key": "response_type",
+							"value": "json"
+						},
+						{
+							"key": "perPage",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
